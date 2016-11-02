@@ -1,11 +1,11 @@
 # Introduction
 This code is authored by Ben Barsdell. The code can be found in Google Code Archive (https://code.google.com/archive/p/dedisp)
 
-dedisp provides a simple C interface to computing dedispersion transforms using a GPU. The interface is modelled on that of the well-known [http://www.fftw.org/ FFTW] library, and uses an object-oriented approach. The user first creates a dedispersion _plan_, and then calls functions to modify or execute that plan. A full list and description of the functions provided by the library can be viewed in the API documentation below.
+dedisp provides a simple C interface to computing dedispersion transforms using a GPU. The interface is modelled on that of the well-known FFTW library, and uses an object-oriented approach. The user first creates a dedispersion _plan_, and then calls functions to modify or execute that plan. A full list and description of the functions provided by the library can be viewed in the API documentation below.
 
 # Dependencies
 
-The library requires NVIDIA's [http://www.nvidia.com/object/cuda_home_new.html CUDA] in order to access the GPU. This also imposes the constraint that the target hardware must be an NVIDIA GPU. To compile the library you must have the NVIDIA CUDA C compiler _nvcc_ in your path.
+The library requires NVIDIA's CUDA in order to access the GPU. This also imposes the constraint that the target hardware must be an NVIDIA GPU. To compile the library you must have the NVIDIA CUDA C compiler _nvcc_ in your path.
 
 # Installation
 
