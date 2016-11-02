@@ -1,5 +1,5 @@
 # Introduction
-This code is authored by Ben Barsdell. The code can be found in Google Code Archive ()
+This code is authored by Ben Barsdell. The code can be found in Google Code Archive (https://code.google.com/archive/p/dedisp)
 
 dedisp provides a simple C interface to computing dedispersion transforms using a GPU. The interface is modelled on that of the well-known [http://www.fftw.org/ FFTW] library, and uses an object-oriented approach. The user first creates a dedispersion _plan_, and then calls functions to modify or execute that plan. A full list and description of the functions provided by the library can be viewed in the API documentation below.
 
