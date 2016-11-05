@@ -47,11 +47,11 @@ extern "C" {
 
 // Types
 // -----
-typedef float                      dedisp_float;
-typedef unsigned char              dedisp_byte;
-typedef unsigned long              dedisp_size;
-typedef int                        dedisp_bool;
-typedef struct dedisp_plan_struct* dedisp_plan;
+typedef float                             dedisp_float;
+typedef unsigned char                     dedisp_byte;
+typedef unsigned long                     dedisp_size;
+typedef int                               dedisp_bool;
+typedef struct dedisp_plan_struct*        dedisp_plan;
 
 /*! \typedef dedisp_float
  * The floating-point data-type used by the library. This is currently
@@ -133,8 +133,7 @@ typedef enum {
 
 // Plan management
 // ---------------
-/*! \p dedisp_create_plan builds a new plan object using the given parameters
- *  and returns it in \p *plan.
+/*! \p dedisp_create_plan is a wrapper for dedisp_create_plan_multi that is implemented for back compatibility. \p *plan.
  *  
  *  \param plan Pointer to a dedisp_plan object
  *  \param nchans Number of frequency channels
@@ -152,6 +151,29 @@ dedisp_error dedisp_create_plan(dedisp_plan* plan,
                                 dedisp_float dt,
                                 dedisp_float f0,
                                 dedisp_float df);
+
+/*! \p dedisp_create_plan_multi builds a new plan object using the given parameters   
+ *  and returns it in \p *plan.                                                 
+ *                                                                              
+ *  \param plan Pointer to a dedisp_plan object                                 
+ *  \param nchans Number of frequency channels                                  
+ *  \param dt Time difference between two consecutive samples in seconds        
+ *  \param f0 Frequency of the first (i.e., highest frequency) channel in MHz   
+ *  \param df Frequency difference between two consecutive channels in MHz      
+ *  \param ngpus Number of CUDA devices to use
+ *  \return One of the following error codes: \n                                
+ *  \p DEDISP_NO_ERROR, \p DEDISP_NCHANS_EXCEEDS_LIMIT,                         
+ *  \p DEDISP_MEM_ALLOC_FAILED, \p DEDISP_MEM_COPY_FAILED,                      
+ *  \p DEDISP_PRIOR_GPU_ERROR                                                   
+ *                                                                              
+ */
+
+dedisp_error dedisp_create_plan_multi(dedisp_plan* plan,
+				      dedisp_size  nchans,
+				      dedisp_float dt,
+				      dedisp_float f0,
+				      dedisp_float df,
+				      dedisp_size  ngpus);
 
 /*! \p dedisp_destroy_plan frees a plan and its associated resources
  *  

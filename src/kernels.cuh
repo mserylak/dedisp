@@ -385,6 +385,11 @@ bool dedisperse(const dedisp_word*  d_in,
 	//         inside the kernel
 	ndm_blocks = min((unsigned int)ndm_blocks,
 					 (unsigned int)(MAX_CUDA_GRID_SIZE_Y/batch_size));
+	/*
+	int cdevice;
+	cudaGetDevice(&cdevice);
+	printf("DEDISP: Device %d:  block: %ix%i, grid: %ix%i\n",cdevice, block.x, block.y, grid.x, grid.y);
+	*/
 	
 	// Note: We combine the DM and batch dimensions into one
 	dim3 grid(nsamp_blocks,

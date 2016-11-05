@@ -1,6 +1,7 @@
 VERS_1.1 {
          global:
                 dedisp_create_plan;
+                dedisp_create_plan_multi;
                 dedisp_destroy_plan;
                 dedisp_set_device;
                 dedisp_set_gulp_size;

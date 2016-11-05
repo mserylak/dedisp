@@ -1,4 +1,3 @@
-
 include Makefile.inc
 
 # Output directories
@@ -35,7 +34,6 @@ PTX_NAME  := ./dedisp_kernels.ptx
 
 all: shared
 
-#$(ECHO) Building shared library $(SO_FILE)
 shared: $(SO_NAME)
 
 $(SO_NAME): $(SOURCES) $(HEADERS)
@@ -44,15 +42,7 @@ $(SO_NAME): $(SOURCES) $(HEADERS)
 	ln -s -f $(SO_FILE) $(LIB_DIR)/$(LIB_NAME)$(SO_EXT).$(MAJOR)
 	ln -s -f $(SO_FILE) $(LIB_DIR)/$(LIB_NAME)$(SO_EXT)
 	cp $(INTERFACE) $(INCLUDE_DIR)
-	cp $(CPP_INTERFACE) $(INCLUDE_DIR)
-
-#static: $(A_NAME)
-
-#$(A_NAME): $(SRC_DIR)/dedisp.cu $(HEADERS)
-#	$(NVCC) -c -Xcompiler "-fPIC -Wall" -arch=$(GPU_ARCH) $(OPTIMISE) $(DEBUG) -o $(OBJ_DIR)/dedisp.o $(SRC_DIR)/dedisp.cu
-#	$(AR) rcs $(A_NAME) $(OBJ_DIR)/dedisp.o
-#	cp $(INTERFACE) $(INCLUDE_DIR)
-#	cp $(CPP_INTERFACE) $(INCLUDE_DIR)
+	#cp $(CPP_INTERFACE) $(INCLUDE_DIR)
 
 test: $(SO_NAME)
 	cd test; $(MAKE) $(MKARGS)
