@@ -16,8 +16,7 @@ INCLUDE   := -I$(SRC_DIR) -I$(THRUST_DIR)
 LIB       := -L$(CUDA_DIR)/$(LIB_ARCH) -lcudart
 
 SOURCES   := $(SRC_DIR)/dedisp.cu
-HEADERS   := $(SRC_DIR)/dedisp.h $(SRC_DIR)/kernels.cuh         \
-             $(SRC_DIR)/gpu_memory.hpp $(SRC_DIR)/transpose.hpp
+HEADERS   := $(SRC_DIR)/dedisp.h $(SRC_DIR)/kernels.cuh $(SRC_DIR)/gpu_memory.hpp $(SRC_DIR)/transpose.hpp
 INTERFACE := $(SRC_DIR)/dedisp.h
 CPP_INTERFACE := $(SRC_DIR)/DedispPlan.hpp
 
@@ -37,6 +36,7 @@ all: shared
 shared: $(SO_NAME)
 
 $(SO_NAME): $(SOURCES) $(HEADERS)
+        mkdir obj include lib
 	$(NVCC) -c -Xcompiler "-fPIC -Wall" $(OPTIMISE) $(DEBUG) $(GPU_ARCH) $(INCLUDE) -o $(OBJ_DIR)/dedisp.o $(SRC_DIR)/dedisp.cu
 	$(GCC) -shared -Wl,--version-script=libdedisp.version,-soname,$(LIB_NAME)$(SO_EXT).$(MAJOR) -o $(SO_NAME) $(OBJ_DIR)/dedisp.o $(LIB)
 	ln -s -f $(SO_FILE) $(LIB_DIR)/$(LIB_NAME)$(SO_EXT).$(MAJOR)
@@ -56,4 +56,4 @@ doc: $(SRC_DIR)/dedisp.h Doxyfile
 	$(DOXYGEN) Doxyfile
 
 clean:
-	$(RM) -f $(SO_NAME) $(A_NAME) $(OBJ_DIR)/*.o
+	$(RM) -rf $(SO_NAME) $(A_NAME) $(OBJ_DIR) $(LIB_DIR) $(INCLUDE_DIR)
