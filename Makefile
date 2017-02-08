@@ -37,8 +37,8 @@ shared: $(SO_NAME)
 
 $(SO_NAME): $(SOURCES) $(HEADERS)
 	mkdir obj include lib
-	$(NVCC) -c -Xcompiler "-fPIC -Wall" $(OPTIMISE) $(DEBUG) $(GPU_ARCH) $(INCLUDE) -o $(OBJ_DIR)/dedisp.o $(SRC_DIR)/dedisp.cu
-	$(GCC) -shared -Wl,--version-script=libdedisp.version,-soname,$(LIB_NAME)$(SO_EXT).$(MAJOR) -o $(SO_NAME) $(OBJ_DIR)/dedisp.o $(LIB)
+	$(NVCC) -c -Xcompiler "-fPIC -Wall" --use_fast_math $(OPTIMISE) $(DEBUG) $(GPU_ARCH) $(INCLUDE) -o $(OBJ_DIR)/dedisp.o $(SRC_DIR)/dedisp.cu
+	$(GCC) -shared -Wl,--version-script=libdedisp.version,-soname,$(LIB_NAME)$(SO_EXT).$(MAJOR) $(LIB) -o $(SO_NAME) $(OBJ_DIR)/dedisp.o $(LIB)
 	ln -s -f $(SO_FILE) $(LIB_DIR)/$(LIB_NAME)$(SO_EXT).$(MAJOR)
 	ln -s -f $(SO_FILE) $(LIB_DIR)/$(LIB_NAME)$(SO_EXT)
 	cp $(INTERFACE) $(INCLUDE_DIR)
@@ -50,7 +50,7 @@ test: $(SO_NAME)
 ptx: $(PTX_NAME)
 
 $(PTX_NAME): $(SOURCES) $(LIB_DIR)/libdedisp.so $(HEADERS)
-	$(NVCC) -ptx -Xcompiler "-fPIC -Wall" $(OPTIMISE) $(DEBUG) $(GPU_ARCH) $(INCLUDE) -o $(PTX_NAME) $(SRC_DIR)/dedisp.cu
+	$(NVCC) -ptx -Xcompiler "-fPIC -Wall" $(OPTIMISE) $(DEBUG) -arch=$(GPU_ARCH) $(INCLUDE) -o $(PTX_NAME) $(SRC_DIR)/dedisp.cu
 
 doc: $(SRC_DIR)/dedisp.h Doxyfile
 	$(DOXYGEN) Doxyfile
